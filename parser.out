@@ -1,0 +1,2124 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COUNTER
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> include_directives declaration_l
+Rule 2     empty -> <empty>
+Rule 3     include_directives -> include_directives include_directive
+Rule 4     include_directives -> include_directive
+Rule 5     include_directives -> empty
+Rule 6     include_directive -> HASH INCLUDE STRING
+Rule 7     include_directive -> HASH DEFINE ID simple_expression
+Rule 8     declaration_l -> declaration_l declaration
+Rule 9     declaration_l -> declaration
+Rule 10    declaration -> type var_declaration EOI
+Rule 11    declaration -> fun_declaration
+Rule 12    var_declaration -> var_declaration COMMA var_definition
+Rule 13    var_declaration -> var_definition
+Rule 14    var_definition -> ID
+Rule 15    var_definition -> ID ASSIGN simple_expression
+Rule 16    fun_declaration -> type ID LPAREN params RPAREN compound_stmt
+Rule 17    fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt
+Rule 18    params -> params_l
+Rule 19    params -> VOID
+Rule 20    params -> empty
+Rule 21    params_l -> params_l COMMA param
+Rule 22    params_l -> param
+Rule 23    param -> type ID
+Rule 24    type -> INT
+Rule 25    type -> FLOAT
+Rule 26    type -> CHAR
+Rule 27    expression -> ID ASSIGN expression
+Rule 28    expression -> simple_expression
+Rule 29    expression_stmt -> expression EOI
+Rule 30    expression_stmt -> EOI
+Rule 31    compound_stmt -> BLOCK_START local_instructions BLOCK_END
+Rule 32    local_instructions -> local_instructions type var_declaration EOI
+Rule 33    local_instructions -> local_instructions statement
+Rule 34    local_instructions -> empty
+Rule 35    statement -> expression_stmt
+Rule 36    statement -> compound_stmt
+Rule 37    statement -> if_stmt
+Rule 38    statement -> while_stmt
+Rule 39    statement -> return_stmt
+Rule 40    return_stmt -> RETURN EOI
+Rule 41    return_stmt -> RETURN expression EOI
+Rule 42    if_stmt -> IF LPAREN condition RPAREN statement
+Rule 43    if_stmt -> IF LPAREN condition RPAREN statement ELSE statement
+Rule 44    while_stmt -> WHILE LPAREN condition RPAREN statement
+Rule 45    condition -> NEGATION simple_expression
+Rule 46    condition -> simple_expression LOGIC_OP simple_expression
+Rule 47    condition -> simple_expression
+Rule 48    simple_expression -> simple_expression RELATION_OP bit_operation
+Rule 49    simple_expression -> bit_operation
+Rule 50    bit_operation -> bit_operation BIT_OP additive_operation
+Rule 51    bit_operation -> additive_operation
+Rule 52    additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation
+Rule 53    additive_operation -> prod_operation
+Rule 54    prod_operation -> prod_operation ARITMETIC_OP_PROD factor
+Rule 55    prod_operation -> factor
+Rule 56    factor -> LPAREN simple_expression RPAREN
+Rule 57    factor -> call
+Rule 58    factor -> ID
+Rule 59    factor -> NUMBER
+Rule 60    factor -> CHARACTER
+Rule 61    call -> ID LPAREN args RPAREN
+Rule 62    args -> args_l
+Rule 63    args -> empty
+Rule 64    args_l -> args_l COMMA simple_expression
+Rule 65    args_l -> simple_expression
+
+Terminals, with rules where they appear
+
+ARITMETIC_OP_ADD     : 52
+ARITMETIC_OP_PROD    : 54
+ASSIGN               : 15 27
+BIT_OP               : 50
+BLOCK_END            : 31
+BLOCK_START          : 31
+CHAR                 : 26
+CHARACTER            : 60
+COMMA                : 12 21 64
+COUNTER              : 
+DEFINE               : 7
+ELSE                 : 43
+EOI                  : 10 29 30 32 40 41
+FLOAT                : 25
+HASH                 : 6 7
+ID                   : 7 14 15 16 17 23 27 58 61
+IF                   : 42 43
+INCLUDE              : 6
+INT                  : 24
+LOGIC_OP             : 46
+LPAREN               : 16 17 42 43 44 56 61
+NEGATION             : 45
+NUMBER               : 59
+RELATION_OP          : 48
+RETURN               : 40 41
+RPAREN               : 16 17 42 43 44 56 61
+STRING               : 6
+VOID                 : 17 19
+WHILE                : 44
+error                : 
+
+Nonterminals, with rules where they appear
+
+additive_operation   : 50 51 52
+args                 : 61
+args_l               : 62 64
+bit_operation        : 48 49 50
+call                 : 57
+compound_stmt        : 16 17 36
+condition            : 42 43 44
+declaration          : 8 9
+declaration_l        : 1 8
+empty                : 5 20 34 63
+expression           : 27 29 41
+expression_stmt      : 35
+factor               : 54 55
+fun_declaration      : 11
+if_stmt              : 37
+include_directive    : 3 4
+include_directives   : 1 3
+local_instructions   : 31 32 33
+param                : 21 22
+params               : 16 17
+params_l             : 18 21
+prod_operation       : 52 53 54
+program              : 0
+return_stmt          : 39
+simple_expression    : 7 15 28 45 46 46 47 48 56 64 65
+statement            : 33 42 43 43 44
+type                 : 10 16 23 32
+var_declaration      : 10 12 32
+var_definition       : 12 13
+while_stmt           : 38
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . include_directives declaration_l
+    (3) include_directives -> . include_directives include_directive
+    (4) include_directives -> . include_directive
+    (5) include_directives -> . empty
+    (6) include_directive -> . HASH INCLUDE STRING
+    (7) include_directive -> . HASH DEFINE ID simple_expression
+    (2) empty -> .
+
+  ! shift/reduce conflict for HASH resolved as shift
+    HASH            shift and go to state 5
+    INT             reduce using rule 2 (empty -> .)
+    FLOAT           reduce using rule 2 (empty -> .)
+    CHAR            reduce using rule 2 (empty -> .)
+    VOID            reduce using rule 2 (empty -> .)
+
+  ! HASH            [ reduce using rule 2 (empty -> .) ]
+
+    program                        shift and go to state 1
+    include_directives             shift and go to state 2
+    include_directive              shift and go to state 3
+    empty                          shift and go to state 4
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> include_directives . declaration_l
+    (3) include_directives -> include_directives . include_directive
+    (8) declaration_l -> . declaration_l declaration
+    (9) declaration_l -> . declaration
+    (6) include_directive -> . HASH INCLUDE STRING
+    (7) include_directive -> . HASH DEFINE ID simple_expression
+    (10) declaration -> . type var_declaration EOI
+    (11) declaration -> . fun_declaration
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+    (16) fun_declaration -> . type ID LPAREN params RPAREN compound_stmt
+    (17) fun_declaration -> . VOID ID LPAREN params RPAREN compound_stmt
+
+    HASH            shift and go to state 5
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+    VOID            shift and go to state 14
+
+    declaration_l                  shift and go to state 6
+    include_directive              shift and go to state 7
+    declaration                    shift and go to state 8
+    type                           shift and go to state 9
+    fun_declaration                shift and go to state 10
+
+state 3
+
+    (4) include_directives -> include_directive .
+
+    HASH            reduce using rule 4 (include_directives -> include_directive .)
+    INT             reduce using rule 4 (include_directives -> include_directive .)
+    FLOAT           reduce using rule 4 (include_directives -> include_directive .)
+    CHAR            reduce using rule 4 (include_directives -> include_directive .)
+    VOID            reduce using rule 4 (include_directives -> include_directive .)
+
+
+state 4
+
+    (5) include_directives -> empty .
+
+    HASH            reduce using rule 5 (include_directives -> empty .)
+    INT             reduce using rule 5 (include_directives -> empty .)
+    FLOAT           reduce using rule 5 (include_directives -> empty .)
+    CHAR            reduce using rule 5 (include_directives -> empty .)
+    VOID            reduce using rule 5 (include_directives -> empty .)
+
+
+state 5
+
+    (6) include_directive -> HASH . INCLUDE STRING
+    (7) include_directive -> HASH . DEFINE ID simple_expression
+
+    INCLUDE         shift and go to state 15
+    DEFINE          shift and go to state 16
+
+
+state 6
+
+    (1) program -> include_directives declaration_l .
+    (8) declaration_l -> declaration_l . declaration
+    (10) declaration -> . type var_declaration EOI
+    (11) declaration -> . fun_declaration
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+    (16) fun_declaration -> . type ID LPAREN params RPAREN compound_stmt
+    (17) fun_declaration -> . VOID ID LPAREN params RPAREN compound_stmt
+
+    $end            reduce using rule 1 (program -> include_directives declaration_l .)
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+    VOID            shift and go to state 14
+
+    declaration                    shift and go to state 17
+    type                           shift and go to state 9
+    fun_declaration                shift and go to state 10
+
+state 7
+
+    (3) include_directives -> include_directives include_directive .
+
+    HASH            reduce using rule 3 (include_directives -> include_directives include_directive .)
+    INT             reduce using rule 3 (include_directives -> include_directives include_directive .)
+    FLOAT           reduce using rule 3 (include_directives -> include_directives include_directive .)
+    CHAR            reduce using rule 3 (include_directives -> include_directives include_directive .)
+    VOID            reduce using rule 3 (include_directives -> include_directives include_directive .)
+
+
+state 8
+
+    (9) declaration_l -> declaration .
+
+    INT             reduce using rule 9 (declaration_l -> declaration .)
+    FLOAT           reduce using rule 9 (declaration_l -> declaration .)
+    CHAR            reduce using rule 9 (declaration_l -> declaration .)
+    VOID            reduce using rule 9 (declaration_l -> declaration .)
+    $end            reduce using rule 9 (declaration_l -> declaration .)
+
+
+state 9
+
+    (10) declaration -> type . var_declaration EOI
+    (16) fun_declaration -> type . ID LPAREN params RPAREN compound_stmt
+    (12) var_declaration -> . var_declaration COMMA var_definition
+    (13) var_declaration -> . var_definition
+    (14) var_definition -> . ID
+    (15) var_definition -> . ID ASSIGN simple_expression
+
+    ID              shift and go to state 19
+
+    var_declaration                shift and go to state 18
+    var_definition                 shift and go to state 20
+
+state 10
+
+    (11) declaration -> fun_declaration .
+
+    INT             reduce using rule 11 (declaration -> fun_declaration .)
+    FLOAT           reduce using rule 11 (declaration -> fun_declaration .)
+    CHAR            reduce using rule 11 (declaration -> fun_declaration .)
+    VOID            reduce using rule 11 (declaration -> fun_declaration .)
+    $end            reduce using rule 11 (declaration -> fun_declaration .)
+
+
+state 11
+
+    (24) type -> INT .
+
+    ID              reduce using rule 24 (type -> INT .)
+
+
+state 12
+
+    (25) type -> FLOAT .
+
+    ID              reduce using rule 25 (type -> FLOAT .)
+
+
+state 13
+
+    (26) type -> CHAR .
+
+    ID              reduce using rule 26 (type -> CHAR .)
+
+
+state 14
+
+    (17) fun_declaration -> VOID . ID LPAREN params RPAREN compound_stmt
+
+    ID              shift and go to state 21
+
+
+state 15
+
+    (6) include_directive -> HASH INCLUDE . STRING
+
+    STRING          shift and go to state 22
+
+
+state 16
+
+    (7) include_directive -> HASH DEFINE . ID simple_expression
+
+    ID              shift and go to state 23
+
+
+state 17
+
+    (8) declaration_l -> declaration_l declaration .
+
+    INT             reduce using rule 8 (declaration_l -> declaration_l declaration .)
+    FLOAT           reduce using rule 8 (declaration_l -> declaration_l declaration .)
+    CHAR            reduce using rule 8 (declaration_l -> declaration_l declaration .)
+    VOID            reduce using rule 8 (declaration_l -> declaration_l declaration .)
+    $end            reduce using rule 8 (declaration_l -> declaration_l declaration .)
+
+
+state 18
+
+    (10) declaration -> type var_declaration . EOI
+    (12) var_declaration -> var_declaration . COMMA var_definition
+
+    EOI             shift and go to state 24
+    COMMA           shift and go to state 25
+
+
+state 19
+
+    (16) fun_declaration -> type ID . LPAREN params RPAREN compound_stmt
+    (14) var_definition -> ID .
+    (15) var_definition -> ID . ASSIGN simple_expression
+
+    LPAREN          shift and go to state 26
+    EOI             reduce using rule 14 (var_definition -> ID .)
+    COMMA           reduce using rule 14 (var_definition -> ID .)
+    ASSIGN          shift and go to state 27
+
+
+state 20
+
+    (13) var_declaration -> var_definition .
+
+    EOI             reduce using rule 13 (var_declaration -> var_definition .)
+    COMMA           reduce using rule 13 (var_declaration -> var_definition .)
+
+
+state 21
+
+    (17) fun_declaration -> VOID ID . LPAREN params RPAREN compound_stmt
+
+    LPAREN          shift and go to state 28
+
+
+state 22
+
+    (6) include_directive -> HASH INCLUDE STRING .
+
+    HASH            reduce using rule 6 (include_directive -> HASH INCLUDE STRING .)
+    INT             reduce using rule 6 (include_directive -> HASH INCLUDE STRING .)
+    FLOAT           reduce using rule 6 (include_directive -> HASH INCLUDE STRING .)
+    CHAR            reduce using rule 6 (include_directive -> HASH INCLUDE STRING .)
+    VOID            reduce using rule 6 (include_directive -> HASH INCLUDE STRING .)
+
+
+state 23
+
+    (7) include_directive -> HASH DEFINE ID . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 30
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 24
+
+    (10) declaration -> type var_declaration EOI .
+
+    INT             reduce using rule 10 (declaration -> type var_declaration EOI .)
+    FLOAT           reduce using rule 10 (declaration -> type var_declaration EOI .)
+    CHAR            reduce using rule 10 (declaration -> type var_declaration EOI .)
+    VOID            reduce using rule 10 (declaration -> type var_declaration EOI .)
+    $end            reduce using rule 10 (declaration -> type var_declaration EOI .)
+
+
+state 25
+
+    (12) var_declaration -> var_declaration COMMA . var_definition
+    (14) var_definition -> . ID
+    (15) var_definition -> . ID ASSIGN simple_expression
+
+    ID              shift and go to state 40
+
+    var_definition                 shift and go to state 39
+
+state 26
+
+    (16) fun_declaration -> type ID LPAREN . params RPAREN compound_stmt
+    (18) params -> . params_l
+    (19) params -> . VOID
+    (20) params -> . empty
+    (21) params_l -> . params_l COMMA param
+    (22) params_l -> . param
+    (2) empty -> .
+    (23) param -> . type ID
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+
+    VOID            shift and go to state 44
+    RPAREN          reduce using rule 2 (empty -> .)
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+
+    type                           shift and go to state 41
+    params                         shift and go to state 42
+    params_l                       shift and go to state 43
+    empty                          shift and go to state 45
+    param                          shift and go to state 46
+
+state 27
+
+    (15) var_definition -> ID ASSIGN . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 47
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 28
+
+    (17) fun_declaration -> VOID ID LPAREN . params RPAREN compound_stmt
+    (18) params -> . params_l
+    (19) params -> . VOID
+    (20) params -> . empty
+    (21) params_l -> . params_l COMMA param
+    (22) params_l -> . param
+    (2) empty -> .
+    (23) param -> . type ID
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+
+    VOID            shift and go to state 44
+    RPAREN          reduce using rule 2 (empty -> .)
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+
+    params                         shift and go to state 48
+    params_l                       shift and go to state 43
+    empty                          shift and go to state 45
+    param                          shift and go to state 46
+    type                           shift and go to state 41
+
+state 29
+
+    (58) factor -> ID .
+    (61) call -> ID . LPAREN args RPAREN
+
+    ARITMETIC_OP_PROD reduce using rule 58 (factor -> ID .)
+    ARITMETIC_OP_ADD reduce using rule 58 (factor -> ID .)
+    BIT_OP          reduce using rule 58 (factor -> ID .)
+    RELATION_OP     reduce using rule 58 (factor -> ID .)
+    HASH            reduce using rule 58 (factor -> ID .)
+    INT             reduce using rule 58 (factor -> ID .)
+    FLOAT           reduce using rule 58 (factor -> ID .)
+    CHAR            reduce using rule 58 (factor -> ID .)
+    VOID            reduce using rule 58 (factor -> ID .)
+    EOI             reduce using rule 58 (factor -> ID .)
+    COMMA           reduce using rule 58 (factor -> ID .)
+    RPAREN          reduce using rule 58 (factor -> ID .)
+    LOGIC_OP        reduce using rule 58 (factor -> ID .)
+    LPAREN          shift and go to state 49
+
+
+state 30
+
+    (7) include_directive -> HASH DEFINE ID simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    HASH            reduce using rule 7 (include_directive -> HASH DEFINE ID simple_expression .)
+    INT             reduce using rule 7 (include_directive -> HASH DEFINE ID simple_expression .)
+    FLOAT           reduce using rule 7 (include_directive -> HASH DEFINE ID simple_expression .)
+    CHAR            reduce using rule 7 (include_directive -> HASH DEFINE ID simple_expression .)
+    VOID            reduce using rule 7 (include_directive -> HASH DEFINE ID simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 31
+
+    (49) simple_expression -> bit_operation .
+    (50) bit_operation -> bit_operation . BIT_OP additive_operation
+
+    RELATION_OP     reduce using rule 49 (simple_expression -> bit_operation .)
+    HASH            reduce using rule 49 (simple_expression -> bit_operation .)
+    INT             reduce using rule 49 (simple_expression -> bit_operation .)
+    FLOAT           reduce using rule 49 (simple_expression -> bit_operation .)
+    CHAR            reduce using rule 49 (simple_expression -> bit_operation .)
+    VOID            reduce using rule 49 (simple_expression -> bit_operation .)
+    EOI             reduce using rule 49 (simple_expression -> bit_operation .)
+    COMMA           reduce using rule 49 (simple_expression -> bit_operation .)
+    RPAREN          reduce using rule 49 (simple_expression -> bit_operation .)
+    LOGIC_OP        reduce using rule 49 (simple_expression -> bit_operation .)
+    BIT_OP          shift and go to state 51
+
+
+state 32
+
+    (51) bit_operation -> additive_operation .
+    (52) additive_operation -> additive_operation . ARITMETIC_OP_ADD prod_operation
+
+    BIT_OP          reduce using rule 51 (bit_operation -> additive_operation .)
+    RELATION_OP     reduce using rule 51 (bit_operation -> additive_operation .)
+    HASH            reduce using rule 51 (bit_operation -> additive_operation .)
+    INT             reduce using rule 51 (bit_operation -> additive_operation .)
+    FLOAT           reduce using rule 51 (bit_operation -> additive_operation .)
+    CHAR            reduce using rule 51 (bit_operation -> additive_operation .)
+    VOID            reduce using rule 51 (bit_operation -> additive_operation .)
+    EOI             reduce using rule 51 (bit_operation -> additive_operation .)
+    COMMA           reduce using rule 51 (bit_operation -> additive_operation .)
+    RPAREN          reduce using rule 51 (bit_operation -> additive_operation .)
+    LOGIC_OP        reduce using rule 51 (bit_operation -> additive_operation .)
+    ARITMETIC_OP_ADD shift and go to state 52
+
+
+state 33
+
+    (53) additive_operation -> prod_operation .
+    (54) prod_operation -> prod_operation . ARITMETIC_OP_PROD factor
+
+    ARITMETIC_OP_ADD reduce using rule 53 (additive_operation -> prod_operation .)
+    BIT_OP          reduce using rule 53 (additive_operation -> prod_operation .)
+    RELATION_OP     reduce using rule 53 (additive_operation -> prod_operation .)
+    HASH            reduce using rule 53 (additive_operation -> prod_operation .)
+    INT             reduce using rule 53 (additive_operation -> prod_operation .)
+    FLOAT           reduce using rule 53 (additive_operation -> prod_operation .)
+    CHAR            reduce using rule 53 (additive_operation -> prod_operation .)
+    VOID            reduce using rule 53 (additive_operation -> prod_operation .)
+    EOI             reduce using rule 53 (additive_operation -> prod_operation .)
+    COMMA           reduce using rule 53 (additive_operation -> prod_operation .)
+    RPAREN          reduce using rule 53 (additive_operation -> prod_operation .)
+    LOGIC_OP        reduce using rule 53 (additive_operation -> prod_operation .)
+    ARITMETIC_OP_PROD shift and go to state 53
+
+
+state 34
+
+    (55) prod_operation -> factor .
+
+    ARITMETIC_OP_PROD reduce using rule 55 (prod_operation -> factor .)
+    ARITMETIC_OP_ADD reduce using rule 55 (prod_operation -> factor .)
+    BIT_OP          reduce using rule 55 (prod_operation -> factor .)
+    RELATION_OP     reduce using rule 55 (prod_operation -> factor .)
+    HASH            reduce using rule 55 (prod_operation -> factor .)
+    INT             reduce using rule 55 (prod_operation -> factor .)
+    FLOAT           reduce using rule 55 (prod_operation -> factor .)
+    CHAR            reduce using rule 55 (prod_operation -> factor .)
+    VOID            reduce using rule 55 (prod_operation -> factor .)
+    EOI             reduce using rule 55 (prod_operation -> factor .)
+    COMMA           reduce using rule 55 (prod_operation -> factor .)
+    RPAREN          reduce using rule 55 (prod_operation -> factor .)
+    LOGIC_OP        reduce using rule 55 (prod_operation -> factor .)
+
+
+state 35
+
+    (56) factor -> LPAREN . simple_expression RPAREN
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 54
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 36
+
+    (57) factor -> call .
+
+    ARITMETIC_OP_PROD reduce using rule 57 (factor -> call .)
+    ARITMETIC_OP_ADD reduce using rule 57 (factor -> call .)
+    BIT_OP          reduce using rule 57 (factor -> call .)
+    RELATION_OP     reduce using rule 57 (factor -> call .)
+    HASH            reduce using rule 57 (factor -> call .)
+    INT             reduce using rule 57 (factor -> call .)
+    FLOAT           reduce using rule 57 (factor -> call .)
+    CHAR            reduce using rule 57 (factor -> call .)
+    VOID            reduce using rule 57 (factor -> call .)
+    EOI             reduce using rule 57 (factor -> call .)
+    COMMA           reduce using rule 57 (factor -> call .)
+    RPAREN          reduce using rule 57 (factor -> call .)
+    LOGIC_OP        reduce using rule 57 (factor -> call .)
+
+
+state 37
+
+    (59) factor -> NUMBER .
+
+    ARITMETIC_OP_PROD reduce using rule 59 (factor -> NUMBER .)
+    ARITMETIC_OP_ADD reduce using rule 59 (factor -> NUMBER .)
+    BIT_OP          reduce using rule 59 (factor -> NUMBER .)
+    RELATION_OP     reduce using rule 59 (factor -> NUMBER .)
+    HASH            reduce using rule 59 (factor -> NUMBER .)
+    INT             reduce using rule 59 (factor -> NUMBER .)
+    FLOAT           reduce using rule 59 (factor -> NUMBER .)
+    CHAR            reduce using rule 59 (factor -> NUMBER .)
+    VOID            reduce using rule 59 (factor -> NUMBER .)
+    EOI             reduce using rule 59 (factor -> NUMBER .)
+    COMMA           reduce using rule 59 (factor -> NUMBER .)
+    RPAREN          reduce using rule 59 (factor -> NUMBER .)
+    LOGIC_OP        reduce using rule 59 (factor -> NUMBER .)
+
+
+state 38
+
+    (60) factor -> CHARACTER .
+
+    ARITMETIC_OP_PROD reduce using rule 60 (factor -> CHARACTER .)
+    ARITMETIC_OP_ADD reduce using rule 60 (factor -> CHARACTER .)
+    BIT_OP          reduce using rule 60 (factor -> CHARACTER .)
+    RELATION_OP     reduce using rule 60 (factor -> CHARACTER .)
+    HASH            reduce using rule 60 (factor -> CHARACTER .)
+    INT             reduce using rule 60 (factor -> CHARACTER .)
+    FLOAT           reduce using rule 60 (factor -> CHARACTER .)
+    CHAR            reduce using rule 60 (factor -> CHARACTER .)
+    VOID            reduce using rule 60 (factor -> CHARACTER .)
+    EOI             reduce using rule 60 (factor -> CHARACTER .)
+    COMMA           reduce using rule 60 (factor -> CHARACTER .)
+    RPAREN          reduce using rule 60 (factor -> CHARACTER .)
+    LOGIC_OP        reduce using rule 60 (factor -> CHARACTER .)
+
+
+state 39
+
+    (12) var_declaration -> var_declaration COMMA var_definition .
+
+    EOI             reduce using rule 12 (var_declaration -> var_declaration COMMA var_definition .)
+    COMMA           reduce using rule 12 (var_declaration -> var_declaration COMMA var_definition .)
+
+
+state 40
+
+    (14) var_definition -> ID .
+    (15) var_definition -> ID . ASSIGN simple_expression
+
+    EOI             reduce using rule 14 (var_definition -> ID .)
+    COMMA           reduce using rule 14 (var_definition -> ID .)
+    ASSIGN          shift and go to state 27
+
+
+state 41
+
+    (23) param -> type . ID
+
+    ID              shift and go to state 55
+
+
+state 42
+
+    (16) fun_declaration -> type ID LPAREN params . RPAREN compound_stmt
+
+    RPAREN          shift and go to state 56
+
+
+state 43
+
+    (18) params -> params_l .
+    (21) params_l -> params_l . COMMA param
+
+    RPAREN          reduce using rule 18 (params -> params_l .)
+    COMMA           shift and go to state 57
+
+
+state 44
+
+    (19) params -> VOID .
+
+    RPAREN          reduce using rule 19 (params -> VOID .)
+
+
+state 45
+
+    (20) params -> empty .
+
+    RPAREN          reduce using rule 20 (params -> empty .)
+
+
+state 46
+
+    (22) params_l -> param .
+
+    COMMA           reduce using rule 22 (params_l -> param .)
+    RPAREN          reduce using rule 22 (params_l -> param .)
+
+
+state 47
+
+    (15) var_definition -> ID ASSIGN simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    EOI             reduce using rule 15 (var_definition -> ID ASSIGN simple_expression .)
+    COMMA           reduce using rule 15 (var_definition -> ID ASSIGN simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 48
+
+    (17) fun_declaration -> VOID ID LPAREN params . RPAREN compound_stmt
+
+    RPAREN          shift and go to state 58
+
+
+state 49
+
+    (61) call -> ID LPAREN . args RPAREN
+    (62) args -> . args_l
+    (63) args -> . empty
+    (64) args_l -> . args_l COMMA simple_expression
+    (65) args_l -> . simple_expression
+    (2) empty -> .
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    RPAREN          reduce using rule 2 (empty -> .)
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    args                           shift and go to state 59
+    args_l                         shift and go to state 60
+    empty                          shift and go to state 61
+    simple_expression              shift and go to state 62
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 50
+
+    (48) simple_expression -> simple_expression RELATION_OP . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    bit_operation                  shift and go to state 63
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 51
+
+    (50) bit_operation -> bit_operation BIT_OP . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    additive_operation             shift and go to state 64
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 52
+
+    (52) additive_operation -> additive_operation ARITMETIC_OP_ADD . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    prod_operation                 shift and go to state 65
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 53
+
+    (54) prod_operation -> prod_operation ARITMETIC_OP_PROD . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    factor                         shift and go to state 66
+    call                           shift and go to state 36
+
+state 54
+
+    (56) factor -> LPAREN simple_expression . RPAREN
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    RPAREN          shift and go to state 67
+    RELATION_OP     shift and go to state 50
+
+
+state 55
+
+    (23) param -> type ID .
+
+    COMMA           reduce using rule 23 (param -> type ID .)
+    RPAREN          reduce using rule 23 (param -> type ID .)
+
+
+state 56
+
+    (16) fun_declaration -> type ID LPAREN params RPAREN . compound_stmt
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+
+    BLOCK_START     shift and go to state 69
+
+    compound_stmt                  shift and go to state 68
+
+state 57
+
+    (21) params_l -> params_l COMMA . param
+    (23) param -> . type ID
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+
+    param                          shift and go to state 70
+    type                           shift and go to state 41
+
+state 58
+
+    (17) fun_declaration -> VOID ID LPAREN params RPAREN . compound_stmt
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+
+    BLOCK_START     shift and go to state 69
+
+    compound_stmt                  shift and go to state 71
+
+state 59
+
+    (61) call -> ID LPAREN args . RPAREN
+
+    RPAREN          shift and go to state 72
+
+
+state 60
+
+    (62) args -> args_l .
+    (64) args_l -> args_l . COMMA simple_expression
+
+    RPAREN          reduce using rule 62 (args -> args_l .)
+    COMMA           shift and go to state 73
+
+
+state 61
+
+    (63) args -> empty .
+
+    RPAREN          reduce using rule 63 (args -> empty .)
+
+
+state 62
+
+    (65) args_l -> simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    COMMA           reduce using rule 65 (args_l -> simple_expression .)
+    RPAREN          reduce using rule 65 (args_l -> simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 63
+
+    (48) simple_expression -> simple_expression RELATION_OP bit_operation .
+    (50) bit_operation -> bit_operation . BIT_OP additive_operation
+
+    RELATION_OP     reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    HASH            reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    INT             reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    FLOAT           reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    CHAR            reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    VOID            reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    EOI             reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    COMMA           reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    RPAREN          reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    LOGIC_OP        reduce using rule 48 (simple_expression -> simple_expression RELATION_OP bit_operation .)
+    BIT_OP          shift and go to state 51
+
+
+state 64
+
+    (50) bit_operation -> bit_operation BIT_OP additive_operation .
+    (52) additive_operation -> additive_operation . ARITMETIC_OP_ADD prod_operation
+
+    BIT_OP          reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    RELATION_OP     reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    HASH            reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    INT             reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    FLOAT           reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    CHAR            reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    VOID            reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    EOI             reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    COMMA           reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    RPAREN          reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    LOGIC_OP        reduce using rule 50 (bit_operation -> bit_operation BIT_OP additive_operation .)
+    ARITMETIC_OP_ADD shift and go to state 52
+
+
+state 65
+
+    (52) additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .
+    (54) prod_operation -> prod_operation . ARITMETIC_OP_PROD factor
+
+    ARITMETIC_OP_ADD reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    BIT_OP          reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    RELATION_OP     reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    HASH            reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    INT             reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    FLOAT           reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    CHAR            reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    VOID            reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    EOI             reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    COMMA           reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    RPAREN          reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    LOGIC_OP        reduce using rule 52 (additive_operation -> additive_operation ARITMETIC_OP_ADD prod_operation .)
+    ARITMETIC_OP_PROD shift and go to state 53
+
+
+state 66
+
+    (54) prod_operation -> prod_operation ARITMETIC_OP_PROD factor .
+
+    ARITMETIC_OP_PROD reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    ARITMETIC_OP_ADD reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    BIT_OP          reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    RELATION_OP     reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    HASH            reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    INT             reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    FLOAT           reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    CHAR            reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    VOID            reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    EOI             reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    COMMA           reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    RPAREN          reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+    LOGIC_OP        reduce using rule 54 (prod_operation -> prod_operation ARITMETIC_OP_PROD factor .)
+
+
+state 67
+
+    (56) factor -> LPAREN simple_expression RPAREN .
+
+    ARITMETIC_OP_PROD reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    ARITMETIC_OP_ADD reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    BIT_OP          reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    RELATION_OP     reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    HASH            reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    INT             reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    FLOAT           reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    CHAR            reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    VOID            reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    EOI             reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    COMMA           reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    RPAREN          reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+    LOGIC_OP        reduce using rule 56 (factor -> LPAREN simple_expression RPAREN .)
+
+
+state 68
+
+    (16) fun_declaration -> type ID LPAREN params RPAREN compound_stmt .
+
+    INT             reduce using rule 16 (fun_declaration -> type ID LPAREN params RPAREN compound_stmt .)
+    FLOAT           reduce using rule 16 (fun_declaration -> type ID LPAREN params RPAREN compound_stmt .)
+    CHAR            reduce using rule 16 (fun_declaration -> type ID LPAREN params RPAREN compound_stmt .)
+    VOID            reduce using rule 16 (fun_declaration -> type ID LPAREN params RPAREN compound_stmt .)
+    $end            reduce using rule 16 (fun_declaration -> type ID LPAREN params RPAREN compound_stmt .)
+
+
+state 69
+
+    (31) compound_stmt -> BLOCK_START . local_instructions BLOCK_END
+    (32) local_instructions -> . local_instructions type var_declaration EOI
+    (33) local_instructions -> . local_instructions statement
+    (34) local_instructions -> . empty
+    (2) empty -> .
+
+    BLOCK_END       reduce using rule 2 (empty -> .)
+    INT             reduce using rule 2 (empty -> .)
+    FLOAT           reduce using rule 2 (empty -> .)
+    CHAR            reduce using rule 2 (empty -> .)
+    EOI             reduce using rule 2 (empty -> .)
+    BLOCK_START     reduce using rule 2 (empty -> .)
+    IF              reduce using rule 2 (empty -> .)
+    WHILE           reduce using rule 2 (empty -> .)
+    RETURN          reduce using rule 2 (empty -> .)
+    ID              reduce using rule 2 (empty -> .)
+    LPAREN          reduce using rule 2 (empty -> .)
+    NUMBER          reduce using rule 2 (empty -> .)
+    CHARACTER       reduce using rule 2 (empty -> .)
+
+    local_instructions             shift and go to state 74
+    empty                          shift and go to state 75
+
+state 70
+
+    (21) params_l -> params_l COMMA param .
+
+    COMMA           reduce using rule 21 (params_l -> params_l COMMA param .)
+    RPAREN          reduce using rule 21 (params_l -> params_l COMMA param .)
+
+
+state 71
+
+    (17) fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .
+
+    INT             reduce using rule 17 (fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .)
+    FLOAT           reduce using rule 17 (fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .)
+    CHAR            reduce using rule 17 (fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .)
+    VOID            reduce using rule 17 (fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .)
+    $end            reduce using rule 17 (fun_declaration -> VOID ID LPAREN params RPAREN compound_stmt .)
+
+
+state 72
+
+    (61) call -> ID LPAREN args RPAREN .
+
+    ARITMETIC_OP_PROD reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    ARITMETIC_OP_ADD reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    BIT_OP          reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    RELATION_OP     reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    HASH            reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    INT             reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    FLOAT           reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    CHAR            reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    VOID            reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    EOI             reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    COMMA           reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    RPAREN          reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+    LOGIC_OP        reduce using rule 61 (call -> ID LPAREN args RPAREN .)
+
+
+state 73
+
+    (64) args_l -> args_l COMMA . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 76
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 74
+
+    (31) compound_stmt -> BLOCK_START local_instructions . BLOCK_END
+    (32) local_instructions -> local_instructions . type var_declaration EOI
+    (33) local_instructions -> local_instructions . statement
+    (24) type -> . INT
+    (25) type -> . FLOAT
+    (26) type -> . CHAR
+    (35) statement -> . expression_stmt
+    (36) statement -> . compound_stmt
+    (37) statement -> . if_stmt
+    (38) statement -> . while_stmt
+    (39) statement -> . return_stmt
+    (29) expression_stmt -> . expression EOI
+    (30) expression_stmt -> . EOI
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+    (42) if_stmt -> . IF LPAREN condition RPAREN statement
+    (43) if_stmt -> . IF LPAREN condition RPAREN statement ELSE statement
+    (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
+    (40) return_stmt -> . RETURN EOI
+    (41) return_stmt -> . RETURN expression EOI
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    BLOCK_END       shift and go to state 77
+    INT             shift and go to state 11
+    FLOAT           shift and go to state 12
+    CHAR            shift and go to state 13
+    EOI             shift and go to state 79
+    BLOCK_START     shift and go to state 69
+    IF              shift and go to state 87
+    WHILE           shift and go to state 88
+    RETURN          shift and go to state 89
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    type                           shift and go to state 78
+    statement                      shift and go to state 80
+    expression_stmt                shift and go to state 81
+    compound_stmt                  shift and go to state 82
+    if_stmt                        shift and go to state 83
+    while_stmt                     shift and go to state 84
+    return_stmt                    shift and go to state 85
+    expression                     shift and go to state 86
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 75
+
+    (34) local_instructions -> empty .
+
+    BLOCK_END       reduce using rule 34 (local_instructions -> empty .)
+    INT             reduce using rule 34 (local_instructions -> empty .)
+    FLOAT           reduce using rule 34 (local_instructions -> empty .)
+    CHAR            reduce using rule 34 (local_instructions -> empty .)
+    EOI             reduce using rule 34 (local_instructions -> empty .)
+    BLOCK_START     reduce using rule 34 (local_instructions -> empty .)
+    IF              reduce using rule 34 (local_instructions -> empty .)
+    WHILE           reduce using rule 34 (local_instructions -> empty .)
+    RETURN          reduce using rule 34 (local_instructions -> empty .)
+    ID              reduce using rule 34 (local_instructions -> empty .)
+    LPAREN          reduce using rule 34 (local_instructions -> empty .)
+    NUMBER          reduce using rule 34 (local_instructions -> empty .)
+    CHARACTER       reduce using rule 34 (local_instructions -> empty .)
+
+
+state 76
+
+    (64) args_l -> args_l COMMA simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    COMMA           reduce using rule 64 (args_l -> args_l COMMA simple_expression .)
+    RPAREN          reduce using rule 64 (args_l -> args_l COMMA simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 77
+
+    (31) compound_stmt -> BLOCK_START local_instructions BLOCK_END .
+
+    INT             reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    FLOAT           reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    CHAR            reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    VOID            reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    $end            reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    BLOCK_END       reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    EOI             reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    BLOCK_START     reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    IF              reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    WHILE           reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    RETURN          reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    ID              reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    LPAREN          reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    NUMBER          reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    CHARACTER       reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+    ELSE            reduce using rule 31 (compound_stmt -> BLOCK_START local_instructions BLOCK_END .)
+
+
+state 78
+
+    (32) local_instructions -> local_instructions type . var_declaration EOI
+    (12) var_declaration -> . var_declaration COMMA var_definition
+    (13) var_declaration -> . var_definition
+    (14) var_definition -> . ID
+    (15) var_definition -> . ID ASSIGN simple_expression
+
+    ID              shift and go to state 40
+
+    var_declaration                shift and go to state 92
+    var_definition                 shift and go to state 20
+
+state 79
+
+    (30) expression_stmt -> EOI .
+
+    BLOCK_END       reduce using rule 30 (expression_stmt -> EOI .)
+    INT             reduce using rule 30 (expression_stmt -> EOI .)
+    FLOAT           reduce using rule 30 (expression_stmt -> EOI .)
+    CHAR            reduce using rule 30 (expression_stmt -> EOI .)
+    EOI             reduce using rule 30 (expression_stmt -> EOI .)
+    BLOCK_START     reduce using rule 30 (expression_stmt -> EOI .)
+    IF              reduce using rule 30 (expression_stmt -> EOI .)
+    WHILE           reduce using rule 30 (expression_stmt -> EOI .)
+    RETURN          reduce using rule 30 (expression_stmt -> EOI .)
+    ID              reduce using rule 30 (expression_stmt -> EOI .)
+    LPAREN          reduce using rule 30 (expression_stmt -> EOI .)
+    NUMBER          reduce using rule 30 (expression_stmt -> EOI .)
+    CHARACTER       reduce using rule 30 (expression_stmt -> EOI .)
+    ELSE            reduce using rule 30 (expression_stmt -> EOI .)
+
+
+state 80
+
+    (33) local_instructions -> local_instructions statement .
+
+    BLOCK_END       reduce using rule 33 (local_instructions -> local_instructions statement .)
+    INT             reduce using rule 33 (local_instructions -> local_instructions statement .)
+    FLOAT           reduce using rule 33 (local_instructions -> local_instructions statement .)
+    CHAR            reduce using rule 33 (local_instructions -> local_instructions statement .)
+    EOI             reduce using rule 33 (local_instructions -> local_instructions statement .)
+    BLOCK_START     reduce using rule 33 (local_instructions -> local_instructions statement .)
+    IF              reduce using rule 33 (local_instructions -> local_instructions statement .)
+    WHILE           reduce using rule 33 (local_instructions -> local_instructions statement .)
+    RETURN          reduce using rule 33 (local_instructions -> local_instructions statement .)
+    ID              reduce using rule 33 (local_instructions -> local_instructions statement .)
+    LPAREN          reduce using rule 33 (local_instructions -> local_instructions statement .)
+    NUMBER          reduce using rule 33 (local_instructions -> local_instructions statement .)
+    CHARACTER       reduce using rule 33 (local_instructions -> local_instructions statement .)
+
+
+state 81
+
+    (35) statement -> expression_stmt .
+
+    BLOCK_END       reduce using rule 35 (statement -> expression_stmt .)
+    INT             reduce using rule 35 (statement -> expression_stmt .)
+    FLOAT           reduce using rule 35 (statement -> expression_stmt .)
+    CHAR            reduce using rule 35 (statement -> expression_stmt .)
+    EOI             reduce using rule 35 (statement -> expression_stmt .)
+    BLOCK_START     reduce using rule 35 (statement -> expression_stmt .)
+    IF              reduce using rule 35 (statement -> expression_stmt .)
+    WHILE           reduce using rule 35 (statement -> expression_stmt .)
+    RETURN          reduce using rule 35 (statement -> expression_stmt .)
+    ID              reduce using rule 35 (statement -> expression_stmt .)
+    LPAREN          reduce using rule 35 (statement -> expression_stmt .)
+    NUMBER          reduce using rule 35 (statement -> expression_stmt .)
+    CHARACTER       reduce using rule 35 (statement -> expression_stmt .)
+    ELSE            reduce using rule 35 (statement -> expression_stmt .)
+
+
+state 82
+
+    (36) statement -> compound_stmt .
+
+    BLOCK_END       reduce using rule 36 (statement -> compound_stmt .)
+    INT             reduce using rule 36 (statement -> compound_stmt .)
+    FLOAT           reduce using rule 36 (statement -> compound_stmt .)
+    CHAR            reduce using rule 36 (statement -> compound_stmt .)
+    EOI             reduce using rule 36 (statement -> compound_stmt .)
+    BLOCK_START     reduce using rule 36 (statement -> compound_stmt .)
+    IF              reduce using rule 36 (statement -> compound_stmt .)
+    WHILE           reduce using rule 36 (statement -> compound_stmt .)
+    RETURN          reduce using rule 36 (statement -> compound_stmt .)
+    ID              reduce using rule 36 (statement -> compound_stmt .)
+    LPAREN          reduce using rule 36 (statement -> compound_stmt .)
+    NUMBER          reduce using rule 36 (statement -> compound_stmt .)
+    CHARACTER       reduce using rule 36 (statement -> compound_stmt .)
+    ELSE            reduce using rule 36 (statement -> compound_stmt .)
+
+
+state 83
+
+    (37) statement -> if_stmt .
+
+    BLOCK_END       reduce using rule 37 (statement -> if_stmt .)
+    INT             reduce using rule 37 (statement -> if_stmt .)
+    FLOAT           reduce using rule 37 (statement -> if_stmt .)
+    CHAR            reduce using rule 37 (statement -> if_stmt .)
+    EOI             reduce using rule 37 (statement -> if_stmt .)
+    BLOCK_START     reduce using rule 37 (statement -> if_stmt .)
+    IF              reduce using rule 37 (statement -> if_stmt .)
+    WHILE           reduce using rule 37 (statement -> if_stmt .)
+    RETURN          reduce using rule 37 (statement -> if_stmt .)
+    ID              reduce using rule 37 (statement -> if_stmt .)
+    LPAREN          reduce using rule 37 (statement -> if_stmt .)
+    NUMBER          reduce using rule 37 (statement -> if_stmt .)
+    CHARACTER       reduce using rule 37 (statement -> if_stmt .)
+    ELSE            reduce using rule 37 (statement -> if_stmt .)
+
+
+state 84
+
+    (38) statement -> while_stmt .
+
+    BLOCK_END       reduce using rule 38 (statement -> while_stmt .)
+    INT             reduce using rule 38 (statement -> while_stmt .)
+    FLOAT           reduce using rule 38 (statement -> while_stmt .)
+    CHAR            reduce using rule 38 (statement -> while_stmt .)
+    EOI             reduce using rule 38 (statement -> while_stmt .)
+    BLOCK_START     reduce using rule 38 (statement -> while_stmt .)
+    IF              reduce using rule 38 (statement -> while_stmt .)
+    WHILE           reduce using rule 38 (statement -> while_stmt .)
+    RETURN          reduce using rule 38 (statement -> while_stmt .)
+    ID              reduce using rule 38 (statement -> while_stmt .)
+    LPAREN          reduce using rule 38 (statement -> while_stmt .)
+    NUMBER          reduce using rule 38 (statement -> while_stmt .)
+    CHARACTER       reduce using rule 38 (statement -> while_stmt .)
+    ELSE            reduce using rule 38 (statement -> while_stmt .)
+
+
+state 85
+
+    (39) statement -> return_stmt .
+
+    BLOCK_END       reduce using rule 39 (statement -> return_stmt .)
+    INT             reduce using rule 39 (statement -> return_stmt .)
+    FLOAT           reduce using rule 39 (statement -> return_stmt .)
+    CHAR            reduce using rule 39 (statement -> return_stmt .)
+    EOI             reduce using rule 39 (statement -> return_stmt .)
+    BLOCK_START     reduce using rule 39 (statement -> return_stmt .)
+    IF              reduce using rule 39 (statement -> return_stmt .)
+    WHILE           reduce using rule 39 (statement -> return_stmt .)
+    RETURN          reduce using rule 39 (statement -> return_stmt .)
+    ID              reduce using rule 39 (statement -> return_stmt .)
+    LPAREN          reduce using rule 39 (statement -> return_stmt .)
+    NUMBER          reduce using rule 39 (statement -> return_stmt .)
+    CHARACTER       reduce using rule 39 (statement -> return_stmt .)
+    ELSE            reduce using rule 39 (statement -> return_stmt .)
+
+
+state 86
+
+    (29) expression_stmt -> expression . EOI
+
+    EOI             shift and go to state 93
+
+
+state 87
+
+    (42) if_stmt -> IF . LPAREN condition RPAREN statement
+    (43) if_stmt -> IF . LPAREN condition RPAREN statement ELSE statement
+
+    LPAREN          shift and go to state 94
+
+
+state 88
+
+    (44) while_stmt -> WHILE . LPAREN condition RPAREN statement
+
+    LPAREN          shift and go to state 95
+
+
+state 89
+
+    (40) return_stmt -> RETURN . EOI
+    (41) return_stmt -> RETURN . expression EOI
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    EOI             shift and go to state 96
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    expression                     shift and go to state 97
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 90
+
+    (27) expression -> ID . ASSIGN expression
+    (58) factor -> ID .
+    (61) call -> ID . LPAREN args RPAREN
+
+    ASSIGN          shift and go to state 98
+    ARITMETIC_OP_PROD reduce using rule 58 (factor -> ID .)
+    ARITMETIC_OP_ADD reduce using rule 58 (factor -> ID .)
+    BIT_OP          reduce using rule 58 (factor -> ID .)
+    RELATION_OP     reduce using rule 58 (factor -> ID .)
+    EOI             reduce using rule 58 (factor -> ID .)
+    LPAREN          shift and go to state 49
+
+
+state 91
+
+    (28) expression -> simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    EOI             reduce using rule 28 (expression -> simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 92
+
+    (32) local_instructions -> local_instructions type var_declaration . EOI
+    (12) var_declaration -> var_declaration . COMMA var_definition
+
+    EOI             shift and go to state 99
+    COMMA           shift and go to state 25
+
+
+state 93
+
+    (29) expression_stmt -> expression EOI .
+
+    BLOCK_END       reduce using rule 29 (expression_stmt -> expression EOI .)
+    INT             reduce using rule 29 (expression_stmt -> expression EOI .)
+    FLOAT           reduce using rule 29 (expression_stmt -> expression EOI .)
+    CHAR            reduce using rule 29 (expression_stmt -> expression EOI .)
+    EOI             reduce using rule 29 (expression_stmt -> expression EOI .)
+    BLOCK_START     reduce using rule 29 (expression_stmt -> expression EOI .)
+    IF              reduce using rule 29 (expression_stmt -> expression EOI .)
+    WHILE           reduce using rule 29 (expression_stmt -> expression EOI .)
+    RETURN          reduce using rule 29 (expression_stmt -> expression EOI .)
+    ID              reduce using rule 29 (expression_stmt -> expression EOI .)
+    LPAREN          reduce using rule 29 (expression_stmt -> expression EOI .)
+    NUMBER          reduce using rule 29 (expression_stmt -> expression EOI .)
+    CHARACTER       reduce using rule 29 (expression_stmt -> expression EOI .)
+    ELSE            reduce using rule 29 (expression_stmt -> expression EOI .)
+
+
+state 94
+
+    (42) if_stmt -> IF LPAREN . condition RPAREN statement
+    (43) if_stmt -> IF LPAREN . condition RPAREN statement ELSE statement
+    (45) condition -> . NEGATION simple_expression
+    (46) condition -> . simple_expression LOGIC_OP simple_expression
+    (47) condition -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    NEGATION        shift and go to state 101
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    condition                      shift and go to state 100
+    simple_expression              shift and go to state 102
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 95
+
+    (44) while_stmt -> WHILE LPAREN . condition RPAREN statement
+    (45) condition -> . NEGATION simple_expression
+    (46) condition -> . simple_expression LOGIC_OP simple_expression
+    (47) condition -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    NEGATION        shift and go to state 101
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    condition                      shift and go to state 103
+    simple_expression              shift and go to state 102
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 96
+
+    (40) return_stmt -> RETURN EOI .
+
+    BLOCK_END       reduce using rule 40 (return_stmt -> RETURN EOI .)
+    INT             reduce using rule 40 (return_stmt -> RETURN EOI .)
+    FLOAT           reduce using rule 40 (return_stmt -> RETURN EOI .)
+    CHAR            reduce using rule 40 (return_stmt -> RETURN EOI .)
+    EOI             reduce using rule 40 (return_stmt -> RETURN EOI .)
+    BLOCK_START     reduce using rule 40 (return_stmt -> RETURN EOI .)
+    IF              reduce using rule 40 (return_stmt -> RETURN EOI .)
+    WHILE           reduce using rule 40 (return_stmt -> RETURN EOI .)
+    RETURN          reduce using rule 40 (return_stmt -> RETURN EOI .)
+    ID              reduce using rule 40 (return_stmt -> RETURN EOI .)
+    LPAREN          reduce using rule 40 (return_stmt -> RETURN EOI .)
+    NUMBER          reduce using rule 40 (return_stmt -> RETURN EOI .)
+    CHARACTER       reduce using rule 40 (return_stmt -> RETURN EOI .)
+    ELSE            reduce using rule 40 (return_stmt -> RETURN EOI .)
+
+
+state 97
+
+    (41) return_stmt -> RETURN expression . EOI
+
+    EOI             shift and go to state 104
+
+
+state 98
+
+    (27) expression -> ID ASSIGN . expression
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    expression                     shift and go to state 105
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 99
+
+    (32) local_instructions -> local_instructions type var_declaration EOI .
+
+    BLOCK_END       reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    INT             reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    FLOAT           reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    CHAR            reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    EOI             reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    BLOCK_START     reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    IF              reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    WHILE           reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    RETURN          reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    ID              reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    LPAREN          reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    NUMBER          reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+    CHARACTER       reduce using rule 32 (local_instructions -> local_instructions type var_declaration EOI .)
+
+
+state 100
+
+    (42) if_stmt -> IF LPAREN condition . RPAREN statement
+    (43) if_stmt -> IF LPAREN condition . RPAREN statement ELSE statement
+
+    RPAREN          shift and go to state 106
+
+
+state 101
+
+    (45) condition -> NEGATION . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 107
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 102
+
+    (46) condition -> simple_expression . LOGIC_OP simple_expression
+    (47) condition -> simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    LOGIC_OP        shift and go to state 108
+    RPAREN          reduce using rule 47 (condition -> simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 103
+
+    (44) while_stmt -> WHILE LPAREN condition . RPAREN statement
+
+    RPAREN          shift and go to state 109
+
+
+state 104
+
+    (41) return_stmt -> RETURN expression EOI .
+
+    BLOCK_END       reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    INT             reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    FLOAT           reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    CHAR            reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    EOI             reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    BLOCK_START     reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    IF              reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    WHILE           reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    RETURN          reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    ID              reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    LPAREN          reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    NUMBER          reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    CHARACTER       reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+    ELSE            reduce using rule 41 (return_stmt -> RETURN expression EOI .)
+
+
+state 105
+
+    (27) expression -> ID ASSIGN expression .
+
+    EOI             reduce using rule 27 (expression -> ID ASSIGN expression .)
+
+
+state 106
+
+    (42) if_stmt -> IF LPAREN condition RPAREN . statement
+    (43) if_stmt -> IF LPAREN condition RPAREN . statement ELSE statement
+    (35) statement -> . expression_stmt
+    (36) statement -> . compound_stmt
+    (37) statement -> . if_stmt
+    (38) statement -> . while_stmt
+    (39) statement -> . return_stmt
+    (29) expression_stmt -> . expression EOI
+    (30) expression_stmt -> . EOI
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+    (42) if_stmt -> . IF LPAREN condition RPAREN statement
+    (43) if_stmt -> . IF LPAREN condition RPAREN statement ELSE statement
+    (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
+    (40) return_stmt -> . RETURN EOI
+    (41) return_stmt -> . RETURN expression EOI
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    EOI             shift and go to state 79
+    BLOCK_START     shift and go to state 69
+    IF              shift and go to state 87
+    WHILE           shift and go to state 88
+    RETURN          shift and go to state 89
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    statement                      shift and go to state 110
+    expression_stmt                shift and go to state 81
+    compound_stmt                  shift and go to state 82
+    if_stmt                        shift and go to state 83
+    while_stmt                     shift and go to state 84
+    return_stmt                    shift and go to state 85
+    expression                     shift and go to state 86
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 107
+
+    (45) condition -> NEGATION simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    RPAREN          reduce using rule 45 (condition -> NEGATION simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 108
+
+    (46) condition -> simple_expression LOGIC_OP . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    LPAREN          shift and go to state 35
+    ID              shift and go to state 29
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    simple_expression              shift and go to state 111
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 109
+
+    (44) while_stmt -> WHILE LPAREN condition RPAREN . statement
+    (35) statement -> . expression_stmt
+    (36) statement -> . compound_stmt
+    (37) statement -> . if_stmt
+    (38) statement -> . while_stmt
+    (39) statement -> . return_stmt
+    (29) expression_stmt -> . expression EOI
+    (30) expression_stmt -> . EOI
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+    (42) if_stmt -> . IF LPAREN condition RPAREN statement
+    (43) if_stmt -> . IF LPAREN condition RPAREN statement ELSE statement
+    (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
+    (40) return_stmt -> . RETURN EOI
+    (41) return_stmt -> . RETURN expression EOI
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    EOI             shift and go to state 79
+    BLOCK_START     shift and go to state 69
+    IF              shift and go to state 87
+    WHILE           shift and go to state 88
+    RETURN          shift and go to state 89
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    statement                      shift and go to state 112
+    expression_stmt                shift and go to state 81
+    compound_stmt                  shift and go to state 82
+    if_stmt                        shift and go to state 83
+    while_stmt                     shift and go to state 84
+    return_stmt                    shift and go to state 85
+    expression                     shift and go to state 86
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 110
+
+    (42) if_stmt -> IF LPAREN condition RPAREN statement .
+    (43) if_stmt -> IF LPAREN condition RPAREN statement . ELSE statement
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    BLOCK_END       reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    INT             reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    FLOAT           reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    CHAR            reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    EOI             reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    BLOCK_START     reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    IF              reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    WHILE           reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    RETURN          reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    ID              reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    LPAREN          reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    NUMBER          reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    CHARACTER       reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .)
+    ELSE            shift and go to state 113
+
+  ! ELSE            [ reduce using rule 42 (if_stmt -> IF LPAREN condition RPAREN statement .) ]
+
+
+state 111
+
+    (46) condition -> simple_expression LOGIC_OP simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    RPAREN          reduce using rule 46 (condition -> simple_expression LOGIC_OP simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
+state 112
+
+    (44) while_stmt -> WHILE LPAREN condition RPAREN statement .
+
+    BLOCK_END       reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    INT             reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    FLOAT           reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    CHAR            reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    EOI             reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    BLOCK_START     reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    IF              reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    WHILE           reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    RETURN          reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    ID              reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    LPAREN          reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    NUMBER          reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    CHARACTER       reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+    ELSE            reduce using rule 44 (while_stmt -> WHILE LPAREN condition RPAREN statement .)
+
+
+state 113
+
+    (43) if_stmt -> IF LPAREN condition RPAREN statement ELSE . statement
+    (35) statement -> . expression_stmt
+    (36) statement -> . compound_stmt
+    (37) statement -> . if_stmt
+    (38) statement -> . while_stmt
+    (39) statement -> . return_stmt
+    (29) expression_stmt -> . expression EOI
+    (30) expression_stmt -> . EOI
+    (31) compound_stmt -> . BLOCK_START local_instructions BLOCK_END
+    (42) if_stmt -> . IF LPAREN condition RPAREN statement
+    (43) if_stmt -> . IF LPAREN condition RPAREN statement ELSE statement
+    (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
+    (40) return_stmt -> . RETURN EOI
+    (41) return_stmt -> . RETURN expression EOI
+    (27) expression -> . ID ASSIGN expression
+    (28) expression -> . simple_expression
+    (48) simple_expression -> . simple_expression RELATION_OP bit_operation
+    (49) simple_expression -> . bit_operation
+    (50) bit_operation -> . bit_operation BIT_OP additive_operation
+    (51) bit_operation -> . additive_operation
+    (52) additive_operation -> . additive_operation ARITMETIC_OP_ADD prod_operation
+    (53) additive_operation -> . prod_operation
+    (54) prod_operation -> . prod_operation ARITMETIC_OP_PROD factor
+    (55) prod_operation -> . factor
+    (56) factor -> . LPAREN simple_expression RPAREN
+    (57) factor -> . call
+    (58) factor -> . ID
+    (59) factor -> . NUMBER
+    (60) factor -> . CHARACTER
+    (61) call -> . ID LPAREN args RPAREN
+
+    EOI             shift and go to state 79
+    BLOCK_START     shift and go to state 69
+    IF              shift and go to state 87
+    WHILE           shift and go to state 88
+    RETURN          shift and go to state 89
+    ID              shift and go to state 90
+    LPAREN          shift and go to state 35
+    NUMBER          shift and go to state 37
+    CHARACTER       shift and go to state 38
+
+    statement                      shift and go to state 114
+    expression_stmt                shift and go to state 81
+    compound_stmt                  shift and go to state 82
+    if_stmt                        shift and go to state 83
+    while_stmt                     shift and go to state 84
+    return_stmt                    shift and go to state 85
+    expression                     shift and go to state 86
+    simple_expression              shift and go to state 91
+    bit_operation                  shift and go to state 31
+    additive_operation             shift and go to state 32
+    prod_operation                 shift and go to state 33
+    factor                         shift and go to state 34
+    call                           shift and go to state 36
+
+state 114
+
+    (43) if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .
+
+    BLOCK_END       reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    INT             reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    FLOAT           reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    CHAR            reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    EOI             reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    BLOCK_START     reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    IF              reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    WHILE           reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    RETURN          reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    ID              reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    LPAREN          reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    NUMBER          reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    CHARACTER       reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+    ELSE            reduce using rule 43 (if_stmt -> IF LPAREN condition RPAREN statement ELSE statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for HASH in state 0 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 110 resolved as shift

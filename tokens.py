@@ -9,49 +9,62 @@ reserved = {
     'char': 'CHAR',
     'void': 'VOID',
     'return': 'RETURN',
-    '#include': 'INCLUDE',
-    '#define': 'DEFINE',
+    'include': 'INCLUDE',
+    'define': 'DEFINE',
 }
 
 tokens = [
     'NUMBER',
+    'COUNTER',
     'CHARACTER',
-    'ARITMETIC_OP_EX',
-    'ARITMETIC_OP_FC',
+    'STRING',
+    'ARITMETIC_OP_ADD',
+    'ARITMETIC_OP_PROD',
     'RELATION_OP',
     'LOGIC_OP',
+    'NEGATION',
     'BIT_OP',
     'LPAREN',
     'RPAREN',
     'BLOCK_START',
     'BLOCK_END',
     'ASSIGN',
+    'COMMA',
     'EOI',
-    'ID'
+    'ID',
+    'HASH'
 ] + list(reserved.values())
  
 # Regular expression rules for simple tokens
+t_STRING = r'"(.*?)"'
 t_CHARACTER = r'\'(\\\'|[^\']){1}\''
-t_ARITMETIC_OP_EX = r'(\+)|(\-)'
-t_ARITMETIC_OP_FC = r'(\*)|(\/)|(\%)'
-t_LOGIC_OP = r'(\|\|)|(\&\&)|(!(?!=))'
+t_ARITMETIC_OP_ADD = r'(\+)|(\-)'
+t_ARITMETIC_OP_PROD = r'(\*)|(\/)|(\%)'
+t_NEGATION = r'(!(?!=))'
+t_LOGIC_OP = r'(\|\|)|(\&\&)'
 t_BIT_OP = r'(>>|<<|\&|\||~|\^)'
-t_RELATION_OP = r'(==)|(!=)|(>=)|(<=)|(<)|(>)'
+t_RELATION_OP = r'(==)|(!=)|(>=)|(<=)|(<(?!<))|(>(?!>))'
 t_LPAREN  = r'\('
 t_RPAREN = r'\)'
-t_BLOCK_START = r'\}'
-t_BLOCK_END = r'\{'
+t_BLOCK_START = r'\{'
+t_BLOCK_END = r'\}'
 t_ASSIGN = r'='
+t_COMMA = r','
 t_EOI = r';'
+t_HASH = r'\#'
  
  # A regular expression rule with some action code
 def t_NUMBER(t):
-    r'\d+(.(\d)+)?'
+    r'(\d)+(\.(\d)+)?'
 
     if ("." in t.value):
         t.value = float(t.value)
     else:
         t.value = int(t.value)    
+    return t
+
+def t_COUNTER(t):
+    r'\d+'
     return t
 
 def t_ID(t):
