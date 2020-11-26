@@ -31,7 +31,7 @@ var_definition      18 : ID var_definition'
 var_definition'     19 : ASSIGN simple_expression
                     20 | empty
 
-types                21 : INT
+types               21 : INT
                     22 | FLOAT
                     23 | CHAR
 
