@@ -35,6 +35,15 @@ tokens = [
 ] + list(reserved.values())
  
 # Regular expression rules for simple tokens
+
+def t_COMMENT(t):
+    r'\/\/.*'
+    pass
+
+def t_MULTICOMMENT(t):
+    r'\/\*((.*(\n)*)*?)\*\/'
+    pass
+
 t_STRING = r'"(.*?)"'
 t_CHARACTER = r'\'(\\\'|[^\']){1}\''
 t_ARITMETIC_OP_ADD = r'(\+)|(\-)'

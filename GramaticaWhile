@@ -10,7 +10,7 @@ local_instructions  05 : local_instructions'
 local_instructions' 06 : local_instruction local_instructions'
                     07 | empty
 
-local_instruction   08 : type var_declaration EOI
+local_instruction   08 : types var_declaration EOI
                     09 | statement
                     
 expression_stmt     10 : expression EOI
@@ -31,7 +31,7 @@ var_definition      18 : ID var_definition'
 var_definition'     19 : ASSIGN simple_expression
                     20 | empty
 
-type                21 : INT
+types                21 : INT
                     22 | FLOAT
                     23 | CHAR
 
