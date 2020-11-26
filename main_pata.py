@@ -632,7 +632,7 @@ tabla = [
 
 stack = ['eof', 0]
 
-def miParser():
+def miParser(code):
     f = open('test_pata.c', 'r')
     code = f.read()
     #lexer.input(f.read())
@@ -684,4 +684,16 @@ def agregar_pila(produccion):
         if elemento != 'empty': #la vacía no la inserta
             stack.append(elemento)
 
-miParser()
+def main():
+    try:
+        i = input('filename > ')
+        f = open(i, 'r')
+        code = f.read()
+
+        miParser(code)
+    except IOError:
+        print("File not found")
+
+
+main()
+
