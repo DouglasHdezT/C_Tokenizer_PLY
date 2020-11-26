@@ -29,7 +29,7 @@ Rule 23    param -> type ID
 Rule 24    type -> INT
 Rule 25    type -> FLOAT
 Rule 26    type -> CHAR
-Rule 27    expression -> ID ASSIGN expression
+Rule 27    expression -> ID ASSIGN simple_expression
 Rule 28    expression -> simple_expression
 Rule 29    expression_stmt -> expression EOI
 Rule 30    expression_stmt -> EOI
@@ -48,7 +48,7 @@ Rule 42    if_stmt -> IF LPAREN condition RPAREN statement
 Rule 43    if_stmt -> IF LPAREN condition RPAREN statement ELSE statement
 Rule 44    while_stmt -> WHILE LPAREN condition RPAREN statement
 Rule 45    condition -> NEGATION simple_expression
-Rule 46    condition -> simple_expression LOGIC_OP simple_expression
+Rule 46    condition -> condition LOGIC_OP simple_expression
 Rule 47    condition -> simple_expression
 Rule 48    simple_expression -> simple_expression RELATION_OP bit_operation
 Rule 49    simple_expression -> bit_operation
@@ -109,11 +109,11 @@ args_l               : 62 64
 bit_operation        : 48 49 50
 call                 : 57
 compound_stmt        : 16 17 36
-condition            : 42 43 44
+condition            : 42 43 44 46
 declaration          : 8 9
 declaration_l        : 1 8
 empty                : 5 20 34 63
-expression           : 27 29 41
+expression           : 29 41
 expression_stmt      : 35
 factor               : 54 55
 fun_declaration      : 11
@@ -127,7 +127,7 @@ params_l             : 18 21
 prod_operation       : 52 53 54
 program              : 0
 return_stmt          : 39
-simple_expression    : 7 15 28 45 46 46 47 48 56 64 65
+simple_expression    : 7 15 27 28 45 46 47 48 56 64 65
 statement            : 33 42 43 43 44
 type                 : 10 16 23 32
 var_declaration      : 10 12 32
@@ -1237,7 +1237,7 @@ state 74
     (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
     (40) return_stmt -> . RETURN EOI
     (41) return_stmt -> . RETURN expression EOI
-    (27) expression -> . ID ASSIGN expression
+    (27) expression -> . ID ASSIGN simple_expression
     (28) expression -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -1512,7 +1512,7 @@ state 89
 
     (40) return_stmt -> RETURN . EOI
     (41) return_stmt -> RETURN . expression EOI
-    (27) expression -> . ID ASSIGN expression
+    (27) expression -> . ID ASSIGN simple_expression
     (28) expression -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -1545,7 +1545,7 @@ state 89
 
 state 90
 
-    (27) expression -> ID . ASSIGN expression
+    (27) expression -> ID . ASSIGN simple_expression
     (58) factor -> ID .
     (61) call -> ID . LPAREN args RPAREN
 
@@ -1601,7 +1601,7 @@ state 94
     (42) if_stmt -> IF LPAREN . condition RPAREN statement
     (43) if_stmt -> IF LPAREN . condition RPAREN statement ELSE statement
     (45) condition -> . NEGATION simple_expression
-    (46) condition -> . simple_expression LOGIC_OP simple_expression
+    (46) condition -> . condition LOGIC_OP simple_expression
     (47) condition -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -1636,7 +1636,7 @@ state 95
 
     (44) while_stmt -> WHILE LPAREN . condition RPAREN statement
     (45) condition -> . NEGATION simple_expression
-    (46) condition -> . simple_expression LOGIC_OP simple_expression
+    (46) condition -> . condition LOGIC_OP simple_expression
     (47) condition -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -1696,9 +1696,7 @@ state 97
 
 state 98
 
-    (27) expression -> ID ASSIGN . expression
-    (27) expression -> . ID ASSIGN expression
-    (28) expression -> . simple_expression
+    (27) expression -> ID ASSIGN . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
     (50) bit_operation -> . bit_operation BIT_OP additive_operation
@@ -1714,13 +1712,12 @@ state 98
     (60) factor -> . CHARACTER
     (61) call -> . ID LPAREN args RPAREN
 
-    ID              shift and go to state 90
     LPAREN          shift and go to state 35
+    ID              shift and go to state 29
     NUMBER          shift and go to state 37
     CHARACTER       shift and go to state 38
 
-    expression                     shift and go to state 105
-    simple_expression              shift and go to state 91
+    simple_expression              shift and go to state 105
     bit_operation                  shift and go to state 31
     additive_operation             shift and go to state 32
     prod_operation                 shift and go to state 33
@@ -1750,8 +1747,10 @@ state 100
 
     (42) if_stmt -> IF LPAREN condition . RPAREN statement
     (43) if_stmt -> IF LPAREN condition . RPAREN statement ELSE statement
+    (46) condition -> condition . LOGIC_OP simple_expression
 
     RPAREN          shift and go to state 106
+    LOGIC_OP        shift and go to state 107
 
 
 state 101
@@ -1777,7 +1776,7 @@ state 101
     NUMBER          shift and go to state 37
     CHARACTER       shift and go to state 38
 
-    simple_expression              shift and go to state 107
+    simple_expression              shift and go to state 108
     bit_operation                  shift and go to state 31
     additive_operation             shift and go to state 32
     prod_operation                 shift and go to state 33
@@ -1786,20 +1785,21 @@ state 101
 
 state 102
 
-    (46) condition -> simple_expression . LOGIC_OP simple_expression
     (47) condition -> simple_expression .
     (48) simple_expression -> simple_expression . RELATION_OP bit_operation
 
-    LOGIC_OP        shift and go to state 108
     RPAREN          reduce using rule 47 (condition -> simple_expression .)
+    LOGIC_OP        reduce using rule 47 (condition -> simple_expression .)
     RELATION_OP     shift and go to state 50
 
 
 state 103
 
     (44) while_stmt -> WHILE LPAREN condition . RPAREN statement
+    (46) condition -> condition . LOGIC_OP simple_expression
 
     RPAREN          shift and go to state 109
+    LOGIC_OP        shift and go to state 107
 
 
 state 104
@@ -1824,9 +1824,11 @@ state 104
 
 state 105
 
-    (27) expression -> ID ASSIGN expression .
+    (27) expression -> ID ASSIGN simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
 
-    EOI             reduce using rule 27 (expression -> ID ASSIGN expression .)
+    EOI             reduce using rule 27 (expression -> ID ASSIGN simple_expression .)
+    RELATION_OP     shift and go to state 50
 
 
 state 106
@@ -1846,7 +1848,7 @@ state 106
     (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
     (40) return_stmt -> . RETURN EOI
     (41) return_stmt -> . RETURN expression EOI
-    (27) expression -> . ID ASSIGN expression
+    (27) expression -> . ID ASSIGN simple_expression
     (28) expression -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -1889,16 +1891,7 @@ state 106
 
 state 107
 
-    (45) condition -> NEGATION simple_expression .
-    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
-
-    RPAREN          reduce using rule 45 (condition -> NEGATION simple_expression .)
-    RELATION_OP     shift and go to state 50
-
-
-state 108
-
-    (46) condition -> simple_expression LOGIC_OP . simple_expression
+    (46) condition -> condition LOGIC_OP . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
     (50) bit_operation -> . bit_operation BIT_OP additive_operation
@@ -1926,6 +1919,16 @@ state 108
     factor                         shift and go to state 34
     call                           shift and go to state 36
 
+state 108
+
+    (45) condition -> NEGATION simple_expression .
+    (48) simple_expression -> simple_expression . RELATION_OP bit_operation
+
+    RPAREN          reduce using rule 45 (condition -> NEGATION simple_expression .)
+    LOGIC_OP        reduce using rule 45 (condition -> NEGATION simple_expression .)
+    RELATION_OP     shift and go to state 50
+
+
 state 109
 
     (44) while_stmt -> WHILE LPAREN condition RPAREN . statement
@@ -1942,7 +1945,7 @@ state 109
     (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
     (40) return_stmt -> . RETURN EOI
     (41) return_stmt -> . RETURN expression EOI
-    (27) expression -> . ID ASSIGN expression
+    (27) expression -> . ID ASSIGN simple_expression
     (28) expression -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation
@@ -2009,10 +2012,11 @@ state 110
 
 state 111
 
-    (46) condition -> simple_expression LOGIC_OP simple_expression .
+    (46) condition -> condition LOGIC_OP simple_expression .
     (48) simple_expression -> simple_expression . RELATION_OP bit_operation
 
-    RPAREN          reduce using rule 46 (condition -> simple_expression LOGIC_OP simple_expression .)
+    RPAREN          reduce using rule 46 (condition -> condition LOGIC_OP simple_expression .)
+    LOGIC_OP        reduce using rule 46 (condition -> condition LOGIC_OP simple_expression .)
     RELATION_OP     shift and go to state 50
 
 
@@ -2052,7 +2056,7 @@ state 113
     (44) while_stmt -> . WHILE LPAREN condition RPAREN statement
     (40) return_stmt -> . RETURN EOI
     (41) return_stmt -> . RETURN expression EOI
-    (27) expression -> . ID ASSIGN expression
+    (27) expression -> . ID ASSIGN simple_expression
     (28) expression -> . simple_expression
     (48) simple_expression -> . simple_expression RELATION_OP bit_operation
     (49) simple_expression -> . bit_operation

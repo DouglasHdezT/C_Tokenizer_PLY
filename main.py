@@ -117,7 +117,7 @@ def p_while_stmt(p):
 
 def p_condition(p):
     '''condition : NEGATION simple_expression
-                 | simple_expression LOGIC_OP simple_expression
+                 | condition LOGIC_OP simple_expression
                  | simple_expression  
     '''
 
@@ -174,7 +174,6 @@ def p_args_l(p):
 
 def p_error(p):
      if p:
-        print(p)
         print("Syntax error at " + str(p.value) + ", line: " + str(p.lineno))
         # Just discard the token and tell the parser it's okay.
         parser.errok()

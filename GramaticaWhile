@@ -1,5 +1,3 @@
-S -> while_stmt
-
 while_stmt          01 : WHILE LPAREN condition RPAREN statement
 
 statement           02 : expression_stmt 
@@ -7,7 +5,7 @@ statement           02 : expression_stmt
 
 compound_stmt       04 : BLOCK_START local_instructions BLOCK_END
 
-local_instructions  05 : empty local_instructions'
+local_instructions  06 : local_instructions'
 
 local_instructions' 06 : local_instruction local_instructions'
                     07 | empty
@@ -37,11 +35,11 @@ type                19 : INT
                     20 | FLOAT
                     21 | CHAR
 
-condition           22 : NEGATION simple_expression
-                    23 | simple_expression condition'
+condition           xx | condition LOGIC_OP condition_member
+                    xx | condition_member
 
-condition'          xx : LOGIC_OP simple_expression
-                    xx | empty
+condition_member    xx : NEGATION simple_expression
+                    xx | simple_expression
 
 simple_expression   25 : additive_operation simple_expression'
 
