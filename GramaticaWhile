@@ -5,7 +5,7 @@ statement           02 : expression_stmt
 
 compound_stmt       04 : BLOCK_START local_instructions BLOCK_END
 
-local_instructions  06 : local_instructions'
+local_instructions  05 : local_instructions'
 
 local_instructions' 06 : local_instruction local_instructions'
                     07 | empty
@@ -18,47 +18,47 @@ expression_stmt     10 : expression EOI
 
 expression          12 : expression' simple_expression
 
-expression'         xx : ID ASSIGN
-                    xx | empty
+expression'         13 : ID ASSIGN
+                    14 | empty
 
-var_declaration     14 : var_definition var_declaration'
+var_declaration     15 : var_definition var_declaration'
 
-var_declaration'    15 : COMMA var_definition var_declaration'
-                    16 | empty
+var_declaration'    16 : COMMA var_definition var_declaration'
+                    17 | empty
 
-var_definition      17 : ID var_definition'
+var_definition      18 : ID var_definition'
 
-var_definition'     xx : ASSIGN simple_expression
-                    xx | empty
+var_definition'     19 : ASSIGN simple_expression
+                    20 | empty
 
-type                19 : INT
-                    20 | FLOAT
-                    21 | CHAR
+type                21 : INT
+                    22 | FLOAT
+                    23 | CHAR
 
-condition           xx | condition_member condition'
+condition           24 | condition_member condition'
 
-condition'          xx | LOGIC_OP condition_member condition'
-                    xx | empty
+condition'          25 | LOGIC_OP condition_member condition'
+                    26 | empty
 
-condition_member    xx : NEGATION simple_expression
-                    xx | simple_expression
+condition_member    27 : NEGATION simple_expression
+                    28 | simple_expression
 
-simple_expression   25 : additive_operation simple_expression'
+simple_expression   29 : additive_operation simple_expression'
 
-simple_expression'  26 : RELATION_OP additive_operation simple_expression'
-                    27 | empty
+simple_expression'  30 : RELATION_OP additive_operation simple_expression'
+                    31 | empty
 
-additive_operation  28 : prod_operation additive_operation'
+additive_operation  32 : prod_operation additive_operation'
 
-additive_operation' 29 : ARITMETIC_OP_ADD prod_operation additive_operation'
-                    30 | empty
+additive_operation' 33 : ARITMETIC_OP_ADD prod_operation additive_operation'
+                    34 | empty
 
-prod_operation      31 : factor prod_operation' 
+prod_operation      35 : factor prod_operation' 
 
-prod_operation'     32 : ARITMETIC_OP_PROD factor prod_operation'
-                    33 | empty
+prod_operation'     36 : ARITMETIC_OP_PROD factor prod_operation'
+                    37 | empty
 
-factor              34 : LPAREN simple_expression RPAREN
-                    35 | ID
-                    36 | NUMBER
-                    37 | CHARACTER 
+factor              38 : LPAREN simple_expression RPAREN
+                    39 | ID
+                    40 | NUMBER
+                    41 | CHARACTER 
