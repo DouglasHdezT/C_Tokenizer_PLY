@@ -1,0 +1,58 @@
+S -> while_stmt
+
+while_stmt          : WHILE LPAREN condition RPAREN statement
+
+statement           : expression_stmt 
+                    | compound_stmt 
+
+compound_stmt       : BLOCK_START local_instructions BLOCK_END
+
+local_instructions  : empty local_instructions'
+
+local_instructions' : local_instruction local_instructions'
+                    | empty
+
+local_instruction   : type var_declaration EOI
+                    | statement
+                    
+expression_stmt     : expression EOI
+                    | EOI
+
+expression          : ID ASSIGN simple_expression
+                    | simple_expression
+
+var_declaration     : var_definition var_declaration'
+
+var_declaration'    : COMMA var_definition var_declaration'
+                    | empty
+
+var_definition      : ID
+                    | ID ASSIGN simple_expression
+
+type                : INT
+                    | FLOAT
+                    | CHAR
+
+condition           : NEGATION simple_expression
+                    | simple_expression LOGIC_OP simple_expression
+                    | simple_expression
+
+simple_expression   : additive_operation simple_expression'
+
+simple_expression'  : RELATION_OP additive_operation simple_expression'
+                    | empty
+
+additive_operation  : prod_operation additive_operation'
+
+additive_operation' : ARITMETIC_OP_ADD prod_operation additive_operation'
+                    | empty
+
+prod_operation      : factor prod_operation' 
+
+prod_operation'     : ARITMETIC_OP_PROD factor prod_operation'
+                    | empty
+
+factor              : LPAREN simple_expression RPAREN
+                    | ID
+                    | NUMBER
+                    | CHARACTER 

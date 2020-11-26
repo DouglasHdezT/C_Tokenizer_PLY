@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    COUNTER
-
 Grammar
 
 Rule 0     S' -> program
@@ -84,7 +80,6 @@ BLOCK_START          : 31
 CHAR                 : 26
 CHARACTER            : 60
 COMMA                : 12 21 64
-COUNTER              : 
 DEFINE               : 7
 ELSE                 : 43
 EOI                  : 10 29 30 32 40 41

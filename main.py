@@ -1,46 +1,5 @@
 from tokens import tokens
 
-# dictionary of names
-""" names = { }
- 
-def p_statement_assign(p):
-    '''statement : INT ID ASSIGN expression EOI
-                 | FLOAT ID ASSIGN expression EOI
-                 | CHAR ID ASSIGN CHARACTER EOI
-    '''
-    if p[1] == "char":
-        names[p[2]] = p[4][1]
-    else:    
-        names[p[2]] = p[4]
- 
-def p_statement_expr(p):
-    'statement : expression'
-    print(p[1])
- 
-def p_expression_binop(p):
-    'expression : expression ARITMETIC_OP_EX expression'
-    if p[2] == '+':
-        p[0] = p[1] + p[3]
-    else:
-        p[0] = p[1] - p[3]
- 
-def p_expression_group(p):
-    "expression : LPAREN expression RPAREN"
-    p[0] = p[2]
- 
-def p_expression_number(p):
-    "expression : NUMBER"
-    p[0] = p[1]
- 
-def p_expression_name(p):
-    "expression : ID"
-    try:
-        p[0] = names[p[1]]
-    except LookupError:
-        print("Undefined name '%s'" % p[1])
-        p[0] = 0 """
-
-
 # Cuerpo principal
 
 def p_program(p):
@@ -113,7 +72,7 @@ def p_type(p):
 # Expresiones y bloques de código
 
 def p_expression(p):
-    '''expression : ID ASSIGN expression
+    '''expression : ID ASSIGN simple_expression
                   | simple_expression
     '''
 
@@ -207,21 +166,36 @@ def p_args_l(p):
               | simple_expression 
     '''
 
-def p_error(p):
+""" def p_error(p):
     if p:
         print("Syntax error at " + p.value + ", line: " + str(p.lineno))
     else:
+        print("Syntax error at EOF") """
+
+def p_error(p):
+     if p:
+        print(p)
+        print("Syntax error at " + str(p.value) + ", line: " + str(p.lineno))
+        # Just discard the token and tell the parser it's okay.
+        parser.errok()
+     else:
         print("Syntax error at EOF")
 
 import ply.yacc as yacc
-yacc.yacc()
+parser = yacc.yacc()
  
 while 1:
+    code = None
     try:
         s = input('Filename > ')
         codeFile = open(s, "r")
         code = codeFile.read()
     except EOFError:
         break
-    if not code: continue
-    yacc.parse(code)
+    except IOError:
+        print("No file found")
+    if code == None or not code:
+        continue
+
+    result = parser.parse(code)
+    print("Analisis sintactico terminado")

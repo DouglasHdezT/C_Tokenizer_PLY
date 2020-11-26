@@ -15,7 +15,6 @@ reserved = {
 
 tokens = [
     'NUMBER',
-    'COUNTER',
     'CHARACTER',
     'STRING',
     'ARITMETIC_OP_ADD',
@@ -61,10 +60,6 @@ def t_NUMBER(t):
         t.value = float(t.value)
     else:
         t.value = int(t.value)    
-    return t
-
-def t_COUNTER(t):
-    r'\d+'
     return t
 
 def t_ID(t):
