@@ -1,58 +1,64 @@
 S -> while_stmt
 
-while_stmt          : WHILE LPAREN condition RPAREN statement
+while_stmt          01 : WHILE LPAREN condition RPAREN statement
 
-statement           : expression_stmt 
-                    | compound_stmt 
+statement           02 : expression_stmt 
+                    03 | compound_stmt 
 
-compound_stmt       : BLOCK_START local_instructions BLOCK_END
+compound_stmt       04 : BLOCK_START local_instructions BLOCK_END
 
-local_instructions  : empty local_instructions'
+local_instructions  05 : empty local_instructions'
 
-local_instructions' : local_instruction local_instructions'
-                    | empty
+local_instructions' 06 : local_instruction local_instructions'
+                    07 | empty
 
-local_instruction   : type var_declaration EOI
-                    | statement
+local_instruction   08 : type var_declaration EOI
+                    09 | statement
                     
-expression_stmt     : expression EOI
-                    | EOI
+expression_stmt     10 : expression EOI
+                    11 | EOI
 
-expression          : ID ASSIGN simple_expression
-                    | simple_expression
+expression          12 : expression' simple_expression
 
-var_declaration     : var_definition var_declaration'
+expression'         xx : ID ASSIGN
+                    xx | empty
 
-var_declaration'    : COMMA var_definition var_declaration'
-                    | empty
+var_declaration     14 : var_definition var_declaration'
 
-var_definition      : ID
-                    | ID ASSIGN simple_expression
+var_declaration'    15 : COMMA var_definition var_declaration'
+                    16 | empty
 
-type                : INT
-                    | FLOAT
-                    | CHAR
+var_definition      17 : ID var_definition'
 
-condition           : NEGATION simple_expression
-                    | simple_expression LOGIC_OP simple_expression
-                    | simple_expression
+var_definition'     xx : ASSIGN simple_expression
+                    xx | empty
 
-simple_expression   : additive_operation simple_expression'
+type                19 : INT
+                    20 | FLOAT
+                    21 | CHAR
 
-simple_expression'  : RELATION_OP additive_operation simple_expression'
-                    | empty
+condition           22 : NEGATION simple_expression
+                    23 | simple_expression condition'
 
-additive_operation  : prod_operation additive_operation'
+condition'          xx : LOGIC_OP simple_expression
+                    xx | empty
 
-additive_operation' : ARITMETIC_OP_ADD prod_operation additive_operation'
-                    | empty
+simple_expression   25 : additive_operation simple_expression'
 
-prod_operation      : factor prod_operation' 
+simple_expression'  26 : RELATION_OP additive_operation simple_expression'
+                    27 | empty
 
-prod_operation'     : ARITMETIC_OP_PROD factor prod_operation'
-                    | empty
+additive_operation  28 : prod_operation additive_operation'
 
-factor              : LPAREN simple_expression RPAREN
-                    | ID
-                    | NUMBER
-                    | CHARACTER 
+additive_operation' 29 : ARITMETIC_OP_ADD prod_operation additive_operation'
+                    30 | empty
+
+prod_operation      31 : factor prod_operation' 
+
+prod_operation'     32 : ARITMETIC_OP_PROD factor prod_operation'
+                    33 | empty
+
+factor              34 : LPAREN simple_expression RPAREN
+                    35 | ID
+                    36 | NUMBER
+                    37 | CHARACTER 

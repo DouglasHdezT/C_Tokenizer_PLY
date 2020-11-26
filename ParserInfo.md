@@ -8,9 +8,11 @@
 | local_instruction   | { INT, FLOAT, CHAR, BLOCK_START, ID, LPAREN, NUMBER, CHARACTER }        | { INT, FLOAT, CHAR, BLOCK_START, ID, LPAREN, NUMBER, CHARACTER, BLOCK_END }        |
 | expression_stmt     | { EOI, ID, LPAREN, NUMBER, CHARACTER }                                  | { $, INT, FLOAT, CHAR, BLOCK_START, ID, LPAREN, NUMBER, CHARACTER, BLOCK_END }     |
 | expression          | { ID, LPAREN, NUMBER, CHARACTER }                                       | { EOI }                                                                            |
+| expression'         | { ID, LPAREN, NUMBER, CHARACTER }                                       | { EOI }                                                                            |
 | var_declaration     | { ID }                                                                  | { EOI }                                                                            |
 | var_declaration'    | { COMMA, empty }                                                        | { EOI }                                                                            |
 | var_definition      | { ID }                                                                  | { COMMA, EOI }                                                                     |
+| var_definition'     | { ID }                                                                  | { COMMA, EOI }                                                                     |
 | type                | { INT, FLOAT, CHAR }                                                    | { ID }                                                                             |
 | condition           | { NEGATION, ID, LPAREN, NUMBER, CHARACTER }                             | { RPAREN }                                                                         |
 | simple_expression   | { ID, LPAREN, NUMBER, CHARACTER }                                       | { RPAREN, EOI, COMMA, LOGIC_OP }                                                   |
@@ -20,3 +22,28 @@
 | prod_operation      | { ID, LPAREN, NUMBER, CHARACTER }                                       | { ARITMETIC_OP_ADD, RELATION_OP, RPAREN, EOI, COMMA, LOGIC_OP }                    |
 | prod_operation'     | { ARITMETIC_OP_PROD, empty }                                            | { ARITMETIC_OP_ADD, RELATION_OP, RPAREN, EOI, COMMA, LOGIC_OP }                    |
 | factor              | { ID, LPAREN, NUMBER, CHARACTER }                                       | { ARITMETIC_OP_PROD, ARITMETIC_OP_ADD, RELATION_OP, RPAREN, EOI, COMMA, LOGIC_OP } |
+
+Tabla de parseo
+
+| NT/T                | WHILE | LPAREN | RPAREN | BLOCK_START | BLOCK_END | EOI | ID  | ASSIGN | COMMA | INT | FLOAT | CHAR | NEGATION | RELATION_OP | ARITMETIC_OP_ADD | ARITMETIC_OP_PROD | LOGIC_OP | NUMBER | CHARACTER |
+| ------------------- | ----- | ------ | ------ | ----------- | --------- | --- | --- | ------ | ----- | --- | ----- | ---- | -------- | ----------- | ---------------- | ----------------- | -------- | ------ | --------- |
+| while_stmt          | 01    |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| statement           |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| compound_stmt       |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| local_instructions  |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| local_instructions' |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| local_instruction   |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| expression_stmt     |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| expression          |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| var_declaration     |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| var_declaration'    |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| var_definition      |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| type                |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| condition           |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| simple_expression   |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| simple_expression'  |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| additive_operation  |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| additive_operation' |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| prod_operation      |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| prod_operation'     |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
+| factor              |       |        |        |             |           |     |     |        |       |     |       |      |          |             |                  |                   |          |        |           |
