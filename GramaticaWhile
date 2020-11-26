@@ -35,8 +35,10 @@ type                19 : INT
                     20 | FLOAT
                     21 | CHAR
 
-condition           xx | condition LOGIC_OP condition_member
-                    xx | condition_member
+condition           xx | condition_member condition'
+
+condition'          xx | LOGIC_OP condition_member condition'
+                    xx | empty
 
 condition_member    xx : NEGATION simple_expression
                     xx | simple_expression
